@@ -15,7 +15,8 @@ def txt_importer(path_file):
         for line in lines:
             treated_line = line.split('\n')
             file_read.append(treated_line[0])
-    except ValueError:
+    except FileNotFoundError:
         return print(f"Arquivo {path_file} não encontrado", file=sys.stderr)
     else:
+        print(file_read)
         return file_read
