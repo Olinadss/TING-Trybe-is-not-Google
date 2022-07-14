@@ -3,31 +3,32 @@ import sys
 
 
 def process(path_file, instance):
-    size_instance = instance.__len__()
+    # path_list = list()
 
-    path_list = list()
+    if len(instance):
+        for index_search in range(len(instance)):
+            if path_file == instance.search(index_search)["nome_do_arquivo"]:
+                return None
 
-    if size_instance:
-        for index_search in range(size_instance):
-            path_list.append(instance.search(index_search)["nome_do_arquivo"])
+    read_file = txt_importer(path_file)
 
-    if path_file not in path_list:
-        read_file = txt_importer(path_file)
+    last_file_added = dict()
 
-        last_file_added = dict()
+    last_file_added["nome_do_arquivo"] = path_file
+    last_file_added["qtd_linhas"] = len(read_file)
+    last_file_added["linhas_do_arquivo"] = read_file
 
-        last_file_added["nome_do_arquivo"]: path_file
-        last_file_added["qtd_linhas"]: len(read_file)
-        last_file_added["linhas_do_arquivo"]: read_file
-
-        print("xablau", last_file_added)
-
-        instance.enqueue(last_file_added)
-        print(last_file_added, file=sys.stdout)
+    instance.enqueue(last_file_added)
+    print(last_file_added, file=sys.stdout)
 
 
 def remove(instance):
-    """Aqui irá sua implementação"""
+    if not len(instance):
+        print("Não há elementos", file=sys.stdout)
+    else:
+        remove_instance = instance.dequeue()
+        file_remove = remove_instance["nome_do_arquivo"]
+        print(f"Arquivo {file_remove} removido com sucesso", file=sys.stdout)
 
 
 def file_metadata(instance, position):
